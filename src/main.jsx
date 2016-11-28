@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Bookstore from './bookstore'
+import {Bookstore} from './components/components'
 
 ReactDOM.render(
   <Bookstore />,

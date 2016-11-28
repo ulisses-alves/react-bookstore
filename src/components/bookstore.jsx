@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-// import {Inject, Bound} from './util'
-import Header from './header'
-import Footer from './footer'
-import Bookshelf from './bookshelf'
+import {Header, Footer, Bookshelf} from './components'
 
 export default class Bookstore extends Component {
   render () {

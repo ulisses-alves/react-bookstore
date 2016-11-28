@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {Inject, Bound} from './util'
-import Books from './books'
-import BookshelfItem from './bookshelf-item'
+import {Inject, Bound} from '../util/util'
+import {Books} from '../core/core'
+import {BookshelfItem} from './components'
 
 export default class Bookshelf extends Component {
   @Inject(Books) get books () {}

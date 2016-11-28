@@ -1,5 +1,4 @@
-import {Inject} from './util'
-import Http from './http'
+import {Inject, Http} from '../util/util'
 
 @Inject(Http)
 export default class Books {
