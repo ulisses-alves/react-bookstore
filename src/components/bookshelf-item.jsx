@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import CSSModules from 'react-css-modules'
 import styles from './bookshelf-item.styl'
+import {Link} from 'react-router'
 import {Inject, Text} from '../util/util'
 
 @CSSModules(styles)
@@ -23,7 +24,7 @@ export default class BookshelfItem extends Component {
     return (
       <li className='col-sm-6 col-md-3' styleName='bookshelf-item'>
         <figure>
-          <a className='thumbnail'>
+          <Link to={`/book/${this.props.item.id}`} className='thumbnail'>
             <div styleName='frame'>
               <img
                 src={this.thumbnail}
@@ -33,7 +34,7 @@ export default class BookshelfItem extends Component {
             <figcaption className='caption text-center'>
               {this.title}
             </figcaption>
-          </a>
+          </Link>
         </figure>
       </li>
     )

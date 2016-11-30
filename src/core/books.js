@@ -7,20 +7,39 @@ export default class Books {
     this.url = 'https://www.googleapis.com/books/v1/volumes/'
   }
 
-  getAll () {
-    return this.http.get(this.url, {
-      q: 'javascript',
-      maxResults: 40
-    })
-    .then(
-      ({data: {items}}) => {
-        return items.map(({id, volumeInfo: {title, imageLinks}}) => ({
-          id,
-          title,
-          thumbnail: imageLinks.thumbnail
-        }))
-      },
-      console.error.bind(console)
-    )
+  async get (id) {
+    try {
+      const {data} = await this.http.get(this.url + id)
+      return book(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async getAll () {
+    try {
+      const {data: {items}} = await this.http.get(this.url, {
+        q: 'javascript',
+        maxResults: 40
+      })
+
+      return items.map(book)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+function book ({id, volumeInfo}) {
+  const {title, description, authors, imageLinks} = volumeInfo
+  const {thumbnail, large, medium, small} = imageLinks
+
+  return {
+    id,
+    title,
+    description,
+    authors,
+    thumbnail,
+    cover: large || medium || small || thumbnail
   }
 }

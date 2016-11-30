@@ -1,15 +1,21 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import CSSModules from 'react-css-modules'
 import styles from './bookstore.styl'
-import {Header, Footer, Bookshelf} from './components'
+import {Header, Footer} from './components'
 
 @CSSModules(styles)
 export default class Bookstore extends Component {
+  static get propTypes () {
+    return {
+      children: PropTypes.element
+    }
+  }
+
   render () {
     return (
       <div className='container' styleName='bookstore'>
         <Header />
-        <Bookshelf />
+        {this.props.children}
         <Footer />
       </div>
     )
