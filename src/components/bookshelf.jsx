@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Inject} from '../util/util'
 import {Books} from '../core/core'
-import {BookshelfItem} from './components'
+import BookshelfItem from './bookshelf-item'
 
 export default class Bookshelf extends Component {
   @Inject(Books) get books () {}
@@ -20,7 +20,7 @@ export default class Bookshelf extends Component {
   }
 
   render () {
-    if (!this.state.books) return <p>Loading...</p>
+    if (!this.state.books) return null
 
     return (
       <ul className='row'>
