@@ -16,10 +16,10 @@ export default class Books {
     }
   }
 
-  async getAll () {
+  async search (query) {
     try {
       const {data: {items}} = await this.http.get(this.url, {
-        q: 'javascript',
+        q: query,
         maxResults: 40
       })
 

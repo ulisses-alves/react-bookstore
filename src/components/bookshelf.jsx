@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
-import {Inject} from '../util/util'
+import CSSModules from 'react-css-modules'
+import styles from './bookshelf.styl'
+import {Inject, Bound} from '../util/util'
 import {Books} from '../core/core'
 import BookshelfItem from './bookshelf-item'
+import Search from './search'
 
+@CSSModules(styles)
 export default class Bookshelf extends Component {
   @Inject(Books) get books () {}
 
@@ -11,21 +15,36 @@ export default class Bookshelf extends Component {
     this.state = {}
   }
 
-  async componentDidMount () {
-    const books = await this.books.getAll()
+  @Bound()
+  handleSearch (query) {
+    this.loadBooks(query)
+  }
+
+  async loadBooks (query) {
+    const books = await this.books.search(query)
 
     this.setState({
       books: books.map(book => <BookshelfItem key={book.id} item={book} />)
     })
   }
 
+  componentDidMount () {
+    this.loadBooks('javascript')
+  }
+
   render () {
     if (!this.state.books) return null
 
     return (
-      <ul className='row'>
-        {this.state.books}
-      </ul>
+      <section styleName='bookshelf'>
+        <Search
+          debounce={300}
+          onChange={this.handleSearch}
+          className='col-sm-12' />
+        <ul>
+          {this.state.books}
+        </ul>
+      </section>
     )
   }
 }
