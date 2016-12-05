@@ -15,6 +15,22 @@ export default class Bookshelf extends Component {
     this.state = {}
   }
 
+  get content () {
+    if (!this.state.books) return null
+
+    return (
+      <div>
+        <Search
+          debounce={300}
+          onChange={this.handleSearch}
+          className='col-sm-12' />
+        <ul>
+          {this.state.books}
+        </ul>
+      </div>
+    )
+  }
+
   @Bound()
   handleSearch (query) {
     this.loadBooks(query)
@@ -33,17 +49,9 @@ export default class Bookshelf extends Component {
   }
 
   render () {
-    if (!this.state.books) return null
-
     return (
       <section styleName='bookshelf'>
-        <Search
-          debounce={300}
-          onChange={this.handleSearch}
-          className='col-sm-12' />
-        <ul>
-          {this.state.books}
-        </ul>
+        {this.content}
       </section>
     )
   }
